@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,th,td{
+            border:3px solid violet;
+            border-collapse:collapse;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>price</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Image</th>
+                <th>IMAGES</th>
+                <th>clicks</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        fetch('https://fakestoreapi.com/products/',{
+            method:"get"
+        }).then(response=>response.json()).then((val)=>{
+            let tableBody = document.querySelector("tbody");
+            for (let i = 0; i < val.length; i++) {
+                let tableRow = document.createElement("tr");
+                
+            
+                let tableData = document.createElement("td");
+                tableData.innerText = val[i].id;
+                tableRow.appendChild(tableData);
+                let tableData1 = document.createElement("td");
+                tableData1.innerText = val[i].title;
+                tableRow.appendChild(tableData1);
+                let tableData2 = document.createElement("td"); 
+                tableData2.innerText = val[i].price;
+                tableRow.appendChild(tableData2);
+                let tableData3 = document.createElement("td");
+                tableData3.innerText = val[i].description;
+                tableRow.appendChild(tableData3);
+                let tableData4 = document.createElement("td");
+                tableData4.innerText = val[i].category;
+                tableRow.appendChild(tableData4);
+                let tableData5 = document.createElement("td");
+                tableData5.innerText = val[i].rating.rate;
+
+
+                
+                tableRow.appendChild(tableData5);
+                
+                tableBody.appendChild(tableRow);
+                
+          
+                let imgCell = document.createElement("td");
+                let img = document.createElement("img");
+                img.setAttribute("src", val[i].image);
+                img.style.width = "80px";
+                img.style.height = "80px";
+                imgCell.appendChild(img);
+                tableRow.appendChild(imgCell);
+                let btn=document.createElement("button")
+                btn.innerText="submit";
+                let tableData7=document.createElement("td");
+                tableData7.appendChild(btn)
+                tableRow.appendChild(tableData7)
+                btn.addEventListener("click",function(){
+                 window.location.href=`https://fakestoreapi.com/products/${val[i].id}`
+
+                })
+
+                }
+            }
+        )
+       
+        .catch(error => console.error(error));
+    </script>
+</body>
+</html>
